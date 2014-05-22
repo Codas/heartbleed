@@ -20,9 +20,9 @@ executable heartbleed
   -- other-modules:       
   default-extensions:  OverloadedStrings
   build-depends:       base >=4 && <5
-                      ,bytestring
+                      ,bytestring >= 0.10.4.0
                       ,pretty-hex
-                      ,network-simple
+                      ,network-simple >= 0.3.1
                       ,optparse-applicative
                       ,transformers
   -- hs-source-dirs:      
