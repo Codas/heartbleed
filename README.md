@@ -4,7 +4,7 @@
 
 ### Installing GHC (Haskell)
 
-Install the [https://www.haskell.org/platform](haskell platform).
+Install the [Haskell Platform](https://www.haskell.org/platform).
 
 open a terminal and updated cabal packages and install a new version:
 ~~~
