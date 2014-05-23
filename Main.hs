@@ -106,8 +106,8 @@ exploit f c (s, _) = do putStrLn "Sending client hello..."
         ignoreHello = do response <- recv s 1024
                          case response of
                            Just payload -> if BS.length payload < 1024
-                                              then ignoreHello
-                                              else return Nothing
+                                              then return Nothing
+                                              else ignoreHello
                            Nothing -> return (Just "Connection closed before receiving a server hello")
 
 -- Pretty print hex representation of binary data.
